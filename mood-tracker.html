@@ -15,20 +15,41 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             padding: 20px;
-            transition: background 1s ease;
+            overflow-x: hidden;
         }
 
         .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mood-selector {
             background: white;
-            border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            padding: 40px;
-            max-width: 600px;
-            width: 100%;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
             animation: fadeInUp 0.8s ease-out;
         }
 
@@ -43,51 +64,33 @@
             }
         }
 
-        h1 {
+        .mood-selector h2 {
             text-align: center;
             color: #333;
-            margin-bottom: 10px;
-            font-size: 28px;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
         }
 
-        .date-display {
-            text-align: center;
-            color: #888;
-            margin-bottom: 30px;
-            font-size: 14px;
-        }
-
-        .mood-section {
-            margin-bottom: 30px;
-        }
-
-        .mood-label {
-            text-align: center;
-            color: #555;
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-
-        .moods {
+        .mood-buttons {
             display: flex;
             justify-content: center;
             gap: 15px;
             flex-wrap: wrap;
+            margin-bottom: 25px;
         }
 
         .mood-btn {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
-            border: 3px solid #e0e0e0;
-            background: white;
+            border: 3px solid transparent;
             cursor: pointer;
-            font-size: 32px;
             transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            font-size: 2.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background: #f8f9fa;
             position: relative;
             overflow: hidden;
         }
@@ -99,245 +102,144 @@
             left: 50%;
             width: 0;
             height: 0;
+            background: rgba(102, 126, 234, 0.2);
             border-radius: 50%;
-            background: rgba(102, 126, 234, 0.3);
             transform: translate(-50%, -50%);
             transition: width 0.6s, height 0.6s;
         }
 
-        .mood-btn:hover::before {
-            width: 150%;
-            height: 150%;
-        }
-
         .mood-btn:hover {
-            transform: scale(1.15) translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transform: scale(1.15) rotate(5deg);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
-        .mood-btn:active {
-            transform: scale(1.1) translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        .mood-btn:hover::before {
+            width: 100px;
+            height: 100px;
         }
 
         .mood-btn.selected {
             border-color: #667eea;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            transform: scale(1.2) translateY(-8px);
-            animation: bounce 0.6s ease-out;
-        }
-
-        .mood-btn.selected .mood-emoji {
-            animation: emojiPop 0.6s ease-out;
+            transform: scale(1.2);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+            animation: bounce 0.5s ease;
         }
 
         @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: scale(1.2) translateY(-8px);
-            }
-            40% {
-                transform: scale(1.25) translateY(-12px);
-            }
-            60% {
-                transform: scale(1.22) translateY(-10px);
-            }
+            0%, 100% { transform: scale(1.2); }
+            50% { transform: scale(1.3); }
         }
 
-        @keyframes emojiPop {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.3) rotate(10deg);
-            }
-            100% {
-                transform: scale(1) rotate(0deg);
-            }
+        .mood-btn:active {
+            transform: scale(0.95);
         }
 
-        .ripple {
+        .mood-label {
             position: absolute;
-            border-radius: 50%;
-            background: rgba(102, 126, 234, 0.6);
-            transform: scale(0);
-            animation: rippleEffect 0.6s linear;
-            pointer-events: none;
-        }
-
-        @keyframes rippleEffect {
-            to {
-                transform: scale(4);
-                opacity: 0;
-            }
+            bottom: -25px;
+            font-size: 0.75rem;
+            color: #666;
+            white-space: nowrap;
         }
 
         .note-section {
-            margin-bottom: 30px;
+            margin-top: 30px;
         }
 
-        .note-label {
-            color: #555;
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-
-        textarea {
+        .note-section textarea {
             width: 100%;
-            height: 100px;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
             padding: 15px;
-            font-size: 14px;
-            resize: none;
-            transition: all 0.3s ease;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 100px;
+            transition: border-color 0.3s, box-shadow 0.3s;
             font-family: inherit;
         }
 
-        textarea:focus {
+        .note-section textarea:focus {
             outline: none;
             border-color: #667eea;
             box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
         }
 
-        .save-btn {
+        .submit-btn {
             width: 100%;
-            padding: 16px;
+            padding: 15px;
+            margin-top: 15px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            border-radius: 12px;
-            font-size: 16px;
+            border-radius: 15px;
+            font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
             position: relative;
             overflow: hidden;
         }
 
-        .save-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
-        }
-
-        .save-btn:active {
-            transform: translateY(0);
-        }
-
-        .save-btn.loading {
-            pointer-events: none;
-            background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
-            box-shadow: 0 4px 15px rgba(107, 114, 128, 0.4);
-        }
-
-        .save-btn.success {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
-            animation: successPulse 0.6s ease-out;
-        }
-
-        @keyframes successPulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        .btn-text {
-            position: relative;
-            z-index: 1;
-        }
-
-        .btn-loader {
+        .submit-btn::before {
+            content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            display: none;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
         }
 
-        @keyframes spin {
-            to {
-                transform: translate(-50%, -50%) rotate(360deg);
-            }
+        .submit-btn:hover::before {
+            left: 100%;
         }
 
-        .save-btn.loading .btn-text {
-            visibility: hidden;
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
         }
 
-        .save-btn.loading .btn-loader {
-            display: block;
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
         }
 
         .history-section {
-            margin-top: 40px;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            animation: fadeInUp 1s ease-out;
         }
 
-        .history-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
+        .history-section h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
         }
 
-        .history-title {
-            color: #555;
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .clear-btn {
-            background: none;
-            border: none;
-            color: #999;
-            font-size: 12px;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .clear-btn:hover {
-            color: #e74c3c;
-        }
-
-        .history-list {
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-        .history-item {
+        .mood-card {
             background: #f8f9fa;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 12px;
-            animation: slideIn 0.4s ease-out;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
             transition: all 0.3s ease;
-        }
-
-        .history-item:hover {
-            transform: translateX(5px);
-            background: #f1f3f5;
-        }
-
-        .history-item.deleting {
-            animation: slideOut 0.4s ease-out forwards;
+            position: relative;
+            overflow: hidden;
+            animation: slideIn 0.5s ease-out;
         }
 
         @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateX(-20px);
+                transform: translateX(-30px);
             }
             to {
                 opacity: 1;
@@ -345,191 +247,209 @@
             }
         }
 
-        @keyframes slideOut {
-            from {
-                opacity: 1;
-                transform: translateX(0);
-            }
-            to {
-                opacity: 0;
-                transform: translateX(50px);
-            }
+        .mood-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
 
-        .history-date {
-            font-size: 12px;
-            color: #888;
-            margin-bottom: 5px;
+        .mood-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 5px;
         }
 
-        .delete-history-btn {
-            background: none;
-            border: none;
-            color: #999;
-            font-size: 12px;
-            cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-            opacity: 0;
-        }
-
-        .history-item:hover .delete-history-btn {
-            opacity: 1;
-        }
-
-        .delete-history-btn:hover {
-            color: #e74c3c;
-            background: rgba(231, 76, 60, 0.1);
-        }
-
-        .history-header-row {
+        .mood-card-header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        .history-mood {
-            display: flex;
             align-items: center;
-            gap: 10px;
+            margin-bottom: 10px;
         }
 
-        .history-mood-emoji {
-            font-size: 28px;
+        .mood-emoji {
+            font-size: 2rem;
         }
 
-        .history-note {
-            font-size: 13px;
+        .mood-date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .mood-note {
             color: #555;
-            margin-top: 8px;
             line-height: 1.5;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #e0e0e0;
         }
 
         .empty-state {
             text-align: center;
+            padding: 40px;
             color: #999;
-            padding: 30px;
-            font-size: 14px;
         }
 
-        .success-toast {
-            position: fixed;
-            top: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(-100px);
-            background: #10b981;
-            color: white;
-            padding: 15px 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
-            font-weight: 600;
-            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            z-index: 1000;
-        }
-
-        .success-toast.show {
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .floating-particles {
-            position: fixed;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .particle {
-            position: absolute;
-            opacity: 0;
-            animation: float 6s ease-in infinite;
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            animation: float 3s ease-in-out infinite;
         }
 
         @keyframes float {
-            0%, 100% {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.3);
+            animation: slideInRight 0.5s ease-out, fadeOut 0.5s ease-out 2.5s forwards;
+            z-index: 1000;
+        }
+
+        @keyframes slideInRight {
+            from {
                 opacity: 0;
-                transform: translateY(0) scale(0.8);
+                transform: translateX(100px);
             }
-            10% {
-                opacity: 0.6;
+            to {
+                opacity: 1;
+                transform: translateX(0);
             }
-            90% {
-                opacity: 0.6;
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
             }
-            100% {
+            to {
                 opacity: 0;
-                transform: translateY(-500px) scale(1.2);
+                visibility: hidden;
             }
         }
 
-        ::-webkit-scrollbar {
-            width: 6px;
+        .stats-section {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
 
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 3px;
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            text-align: center;
+            min-width: 100px;
+            transition: transform 0.3s ease;
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: #667eea;
-            border-radius: 3px;
+        .stat-card:hover {
+            transform: translateY(-5px);
         }
 
-        @media (max-width: 480px) {
-            .container {
-                padding: 25px;
-            }
-            
-            .mood-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 26px;
-            }
-            
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 600px) {
             h1 {
-                font-size: 22px;
+                font-size: 2rem;
+            }
+
+            .mood-buttons {
+                gap: 10px;
+            }
+
+            .mood-btn {
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
+            }
+
+            .mood-selector, .history-section {
+                padding: 20px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="floating-particles" id="particles"></div>
-    
-    <div class="success-toast" id="toast">心情已记录！</div>
-    
     <div class="container">
-        <h1>今日心情</h1>
-        <div class="date-display" id="currentDate"></div>
+        <h1>🌈 每日心情记录</h1>
         
-        <div class="mood-section">
-            <div class="mood-label">选择你今天的心情</div>
-            <div class="moods">
-                <button class="mood-btn" data-mood="happy" data-emoji="😊" data-color="#fbbf24"><span class="mood-emoji">😊</span></button>
-                <button class="mood-btn" data-mood="excited" data-emoji="😃" data-color="#f472b6"><span class="mood-emoji">😃</span></button>
-                <button class="mood-btn" data-mood="calm" data-emoji="😌" data-color="#60a5fa"><span class="mood-emoji">😌</span></button>
-                <button class="mood-btn" data-mood="tired" data-emoji="😴" data-color="#a78bfa"><span class="mood-emoji">😴</span></button>
-                <button class="mood-btn" data-mood="sad" data-emoji="😢" data-color="#94a3b8"><span class="mood-emoji">😢</span></button>
-                <button class="mood-btn" data-mood="angry" data-emoji="😠" data-color="#f87171"><span class="mood-emoji">😠</span></button>
+        <div class="mood-selector">
+            <h2>今天的心情如何？</h2>
+            
+            <div class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-number" id="total-days">0</div>
+                    <div class="stat-label">记录天数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="current-streak">0</div>
+                    <div class="stat-label">连续记录</div>
+                </div>
+            </div>
+            
+            <div class="mood-buttons">
+                <button class="mood-btn" data-mood="happy" data-label="开心">
+                    😊
+                    <span class="mood-label">开心</span>
+                </button>
+                <button class="mood-btn" data-mood="excited" data-label="兴奋">
+                    🤩
+                    <span class="mood-label">兴奋</span>
+                </button>
+                <button class="mood-btn" data-mood="calm" data-label="平静">
+                    😌
+                    <span class="mood-label">平静</span>
+                </button>
+                <button class="mood-btn" data-mood="tired" data-label="疲惫">
+                    😴
+                    <span class="mood-label">疲惫</span>
+                </button>
+                <button class="mood-btn" data-mood="sad" data-label="难过">
+                    😢
+                    <span class="mood-label">难过</span>
+                </button>
+                <button class="mood-btn" data-mood="angry" data-label="生气">
+                    😠
+                    <span class="mood-label">生气</span>
+                </button>
+            </div>
+            
+            <div class="note-section">
+                <textarea id="mood-note" placeholder="写点什么记录今天的心情...（可选）"></textarea>
+                <button class="submit-btn" id="submit-btn" disabled>保存今日心情</button>
             </div>
         </div>
-        
-        <div class="note-section">
-            <div class="note-label">写下今天的感受（可选）</div>
-            <textarea id="noteInput" placeholder="今天发生了什么让你有这样的心情？"></textarea>
-        </div>
-        
-        <button class="save-btn" id="saveBtn">
-            <span class="btn-text">记录今日心情</span>
-            <span class="btn-loader"></span>
-        </button>
         
         <div class="history-section">
-            <div class="history-header">
-                <span class="history-title">历史记录</span>
-                <button class="clear-btn" id="clearBtn">清空记录</button>
-            </div>
-            <div class="history-list" id="historyList">
-                <div class="empty-state">还没有心情记录，开始记录你的第一天吧！</div>
+            <h2>📖 心情历史</h2>
+            <div id="mood-list">
+                <div class="empty-state">
+                    <div class="empty-state-icon">📝</div>
+                    <p>还没有心情记录</p>
+                    <p>选择一个心情开始记录吧！</p>
+                </div>
             </div>
         </div>
     </div>
@@ -537,300 +457,218 @@
     <script>
         const moodEmojis = {
             happy: '😊',
-            excited: '😃',
+            excited: '🤩',
             calm: '😌',
             tired: '😴',
             sad: '😢',
             angry: '😠'
         };
 
+        const moodLabels = {
+            happy: '开心',
+            excited: '兴奋',
+            calm: '平静',
+            tired: '疲惫',
+            sad: '难过',
+            angry: '生气'
+        };
+
         let selectedMood = null;
+        let moodHistory = JSON.parse(localStorage.getItem('moodHistory')) || [];
+
+        const moodButtons = document.querySelectorAll('.mood-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const moodNote = document.getElementById('mood-note');
+        const moodList = document.getElementById('mood-list');
+        const totalDaysEl = document.getElementById('total-days');
+        const currentStreakEl = document.getElementById('current-streak');
+
+        // 初始化
+        init();
 
         function init() {
-            setCurrentDate();
-            setupMoodButtons();
-            setupSaveButton();
-            setupClearButton();
-            loadHistory();
-            createParticles();
+            renderMoodHistory();
+            updateStats();
+            checkTodayMood();
         }
 
-        function setCurrentDate() {
-            const now = new Date();
-            const options = { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric',
-                weekday: 'long'
-            };
-            document.getElementById('currentDate').textContent = now.toLocaleDateString('zh-CN', options);
-        }
-
-        function setupMoodButtons() {
-            const buttons = document.querySelectorAll('.mood-btn');
-            buttons.forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    buttons.forEach(b => b.classList.remove('selected'));
-                    btn.classList.add('selected');
-                    selectedMood = {
-                        mood: btn.dataset.mood,
-                        emoji: btn.dataset.emoji,
-                        color: btn.dataset.color
-                    };
-                    
-                    createClickEffect(btn);
-                    createRipple(e, btn);
-                    changeBackgroundColor(btn.dataset.color);
-                });
+        // 心情按钮点击事件
+        moodButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // 移除之前的选中状态
+                moodButtons.forEach(b => b.classList.remove('selected'));
+                
+                // 添加当前选中状态
+                this.classList.add('selected');
+                selectedMood = this.dataset.mood;
+                
+                // 启用提交按钮
+                submitBtn.disabled = false;
+                
+                // 点击动画
+                this.style.animation = 'none';
+                setTimeout(() => {
+                    this.style.animation = '';
+                }, 10);
             });
-        }
+        });
 
-        function createRipple(e, element) {
-            const ripple = document.createElement('span');
-            const rect = element.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height);
-            const x = e.clientX - rect.left - size / 2;
-            const y = e.clientY - rect.top - size / 2;
-            
-            ripple.style.width = ripple.style.height = size + 'px';
-            ripple.style.left = x + 'px';
-            ripple.style.top = y + 'px';
-            ripple.classList.add('ripple');
-            
-            element.appendChild(ripple);
-            
-            setTimeout(() => {
-                ripple.remove();
-            }, 600);
-        }
-
-        function changeBackgroundColor(color) {
-            const gradientColors = {
-                '#fbbf24': 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
-                '#f472b6': 'linear-gradient(135deg, #f472b6 0%, #ec4899 100%)',
-                '#60a5fa': 'linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%)',
-                '#a78bfa': 'linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%)',
-                '#94a3b8': 'linear-gradient(135deg, #94a3b8 0%, #64748b 100%)',
-                '#f87171': 'linear-gradient(135deg, #f87171 0%, #ef4444 100%)'
-            };
-            
-            const gradient = gradientColors[color] || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-            document.body.style.background = gradient;
-        }
-
-        function createClickEffect(element) {
-            const rect = element.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-            
-            for (let i = 0; i < 8; i++) {
-                const particle = document.createElement('div');
-                particle.style.cssText = `
-                    position: fixed;
-                    left: ${centerX}px;
-                    top: ${centerY}px;
-                    width: 8px;
-                    height: 8px;
-                    background: ${getRandomColor()};
-                    border-radius: 50%;
-                    pointer-events: none;
-                    z-index: 1000;
-                `;
-                document.body.appendChild(particle);
-                
-                const angle = (i / 8) * Math.PI * 2;
-                const distance = 60 + Math.random() * 30;
-                const endX = Math.cos(angle) * distance;
-                const endY = Math.sin(angle) * distance;
-                
-                particle.animate([
-                    { 
-                        transform: 'translate(0, 0) scale(1)',
-                        opacity: 1 
-                    },
-                    { 
-                        transform: `translate(${endX}px, ${endY}px) scale(0)`,
-                        opacity: 0 
-                    }
-                ], {
-                    duration: 600,
-                    easing: 'ease-out'
-                }).onfinish = () => particle.remove();
-            }
-        }
-
-        function getRandomColor() {
-            const colors = ['#667eea', '#764ba2', '#f093fb', '#f5576c', '#4facfe', '#00f2fe'];
-            return colors[Math.floor(Math.random() * colors.length)];
-        }
-
-        function setupSaveButton() {
-            const saveBtn = document.getElementById('saveBtn');
-            saveBtn.addEventListener('click', saveMood);
-        }
+        // 提交按钮点击事件
+        submitBtn.addEventListener('click', saveMood);
 
         function saveMood() {
-            if (!selectedMood) {
-                alert('请先选择一个心情！');
+            if (!selectedMood) return;
+
+            const today = new Date();
+            const dateStr = today.toLocaleDateString('zh-CN', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                weekday: 'long'
+            });
+
+            const moodRecord = {
+                id: Date.now(),
+                date: dateStr,
+                timestamp: today.getTime(),
+                mood: selectedMood,
+                note: moodNote.value.trim()
+            };
+
+            // 检查今天是否已经记录过
+            const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime();
+            const existingToday = moodHistory.find(record => 
+                new Date(record.timestamp).toDateString() === today.toDateString()
+            );
+
+            if (existingToday) {
+                // 更新今天的记录
+                const index = moodHistory.indexOf(existingToday);
+                moodHistory[index] = moodRecord;
+            } else {
+                // 添加新记录
+                moodHistory.unshift(moodRecord);
+            }
+
+            // 保存到 localStorage
+            localStorage.setItem('moodHistory', JSON.stringify(moodHistory));
+
+            // 显示成功消息
+            showSuccessMessage();
+
+            // 重置表单
+            resetForm();
+
+            // 更新显示
+            renderMoodHistory();
+            updateStats();
+        }
+
+        function showSuccessMessage() {
+            const message = document.createElement('div');
+            message.className = 'success-message';
+            message.innerHTML = '✨ 心情记录保存成功！';
+            document.body.appendChild(message);
+
+            setTimeout(() => {
+                message.remove();
+            }, 3000);
+        }
+
+        function resetForm() {
+            selectedMood = null;
+            moodButtons.forEach(b => b.classList.remove('selected'));
+            submitBtn.disabled = true;
+            moodNote.value = '';
+        }
+
+        function renderMoodHistory() {
+            if (moodHistory.length === 0) {
+                moodList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📝</div>
+                        <p>还没有心情记录</p>
+                        <p>选择一个心情开始记录吧！</p>
+                    </div>
+                `;
                 return;
             }
 
-            const saveBtn = document.getElementById('saveBtn');
-            const btnText = saveBtn.querySelector('.btn-text');
-            
-            saveBtn.classList.add('loading');
-            
-            setTimeout(() => {
-                const note = document.getElementById('noteInput').value.trim();
-                const now = new Date();
-                const dateKey = now.toISOString().split('T')[0];
-                
-                const moodEntry = {
-                    id: Date.now(),
-                    date: now.toLocaleDateString('zh-CN', { 
-                        year: 'numeric', 
-                        month: 'long', 
-                        day: 'numeric',
-                        weekday: 'long'
-                    }),
-                    dateKey: dateKey,
-                    mood: selectedMood.mood,
-                    emoji: selectedMood.emoji,
-                    note: note
-                };
-
-                let history = getHistory();
-                history.unshift(moodEntry);
-                localStorage.setItem('moodHistory', JSON.stringify(history));
-
-                saveBtn.classList.remove('loading');
-                saveBtn.classList.add('success');
-                btnText.textContent = '已记录 ✓';
-                
-                showToast();
-                loadHistory();
-                document.getElementById('noteInput').value = '';
-                
-                setTimeout(() => {
-                    saveBtn.classList.remove('success');
-                    btnText.textContent = '记录今日心情';
-                }, 2000);
-            }, 800);
-        }
-
-        function showToast() {
-            const toast = document.getElementById('toast');
-            toast.classList.add('show');
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 2500);
-        }
-
-        function getHistory() {
-            const history = localStorage.getItem('moodHistory');
-            return history ? JSON.parse(history) : [];
-        }
-
-        function loadHistory() {
-            const history = getHistory();
-            const historyList = document.getElementById('historyList');
-            
-            if (history.length === 0) {
-                historyList.innerHTML = '<div class="empty-state">还没有心情记录，开始记录你的第一天吧！</div>';
-                return;
-            }
-
-            historyList.innerHTML = history.map(entry => `
-                <div class="history-item" data-id="${entry.id}">
-                    <div class="history-header-row">
-                        <div class="history-date">${entry.date}</div>
-                        <button class="delete-history-btn" data-id="${entry.id}">删除</button>
+            moodList.innerHTML = moodHistory.map(record => `
+                <div class="mood-card">
+                    <div class="mood-card-header">
+                        <span class="mood-emoji">${moodEmojis[record.mood]}</span>
+                        <span class="mood-date">${record.date}</span>
                     </div>
-                    <div class="history-mood">
-                        <span class="history-mood-emoji">${entry.emoji}</span>
-                        <span>${getMoodText(entry.mood)}</span>
-                    </div>
-                    ${entry.note ? `<div class="history-note">${entry.note}</div>` : ''}
+                    ${record.note ? `<div class="mood-note">${record.note}</div>` : ''}
                 </div>
             `).join('');
-
-            setupDeleteButtons();
         }
 
-        function setupDeleteButtons() {
-            const deleteButtons = document.querySelectorAll('.delete-history-btn');
-            deleteButtons.forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const id = parseInt(btn.dataset.id);
-                    deleteHistoryEntry(id);
-                });
-            });
+        function updateStats() {
+            // 总记录天数
+            totalDaysEl.textContent = moodHistory.length;
+
+            // 计算连续记录天数
+            currentStreakEl.textContent = calculateStreak();
         }
 
-        function deleteHistoryEntry(id) {
-            if (confirm('确定要删除这条心情记录吗？')) {
-                const historyItem = document.querySelector(`.history-item[data-id="${id}"]`);
-                if (historyItem) {
-                    historyItem.classList.add('deleting');
-                    
-                    setTimeout(() => {
-                        let history = getHistory();
-                        history = history.filter(entry => entry.id !== id);
-                        localStorage.setItem('moodHistory', JSON.stringify(history));
-                        loadHistory();
-                    }, 400);
+        function calculateStreak() {
+            if (moodHistory.length === 0) return 0;
+
+            let streak = 0;
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            // 按时间排序
+            const sorted = [...moodHistory].sort((a, b) => b.timestamp - a.timestamp);
+
+            for (let i = 0; i < sorted.length; i++) {
+                const recordDate = new Date(sorted[i].timestamp);
+                recordDate.setHours(0, 0, 0, 0);
+
+                const expectedDate = new Date(today);
+                expectedDate.setDate(today.getDate() - streak);
+                expectedDate.setHours(0, 0, 0, 0);
+
+                if (recordDate.getTime() === expectedDate.getTime()) {
+                    streak++;
+                } else if (i === 0 && recordDate < expectedDate) {
+                    // 如果第一条记录不是今天或昨天，说明连续记录中断
+                    break;
                 }
+            }
+
+            return streak;
+        }
+
+        function checkTodayMood() {
+            const today = new Date();
+            const todayMood = moodHistory.find(record => 
+                new Date(record.timestamp).toDateString() === today.toDateString()
+            );
+
+            if (todayMood) {
+                // 今天已经记录过，显示之前的选择
+                const btn = document.querySelector(`[data-mood="${todayMood.mood}"]`);
+                if (btn) {
+                    btn.classList.add('selected');
+                    selectedMood = todayMood.mood;
+                }
+                moodNote.value = todayMood.note || '';
+                submitBtn.disabled = false;
+                submitBtn.textContent = '更新今日心情';
             }
         }
 
-        function getMoodText(mood) {
-            const moodTexts = {
-                happy: '开心',
-                excited: '兴奋',
-                calm: '平静',
-                tired: '疲惫',
-                sad: '难过',
-                angry: '生气'
-            };
-            return moodTexts[mood] || mood;
-        }
-
-        function setupClearButton() {
-            const clearBtn = document.getElementById('clearBtn');
-            clearBtn.addEventListener('click', () => {
-                if (confirm('确定要清空所有历史记录吗？')) {
-                    localStorage.removeItem('moodHistory');
-                    loadHistory();
+        // 添加键盘事件
+        moodNote.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.ctrlKey) {
+                if (selectedMood) {
+                    saveMood();
                 }
-            });
-        }
-
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const emojis = ['😊', '⭐', '✨', '💫', '🌟', '❤️', '💖'];
-            
-            for (let i = 0; i < 20; i++) {
-                setTimeout(() => {
-                    const particle = document.createElement('div');
-                    particle.className = 'particle';
-                    particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-                    particle.style.left = Math.random() * 100 + 'vw';
-                    particle.style.bottom = '-50px';
-                    particle.style.fontSize = (Math.random() * 20 + 15) + 'px';
-                    particle.style.animationDelay = Math.random() * 6 + 's';
-                    particle.style.animationDuration = (Math.random() * 4 + 5) + 's';
-                    particlesContainer.appendChild(particle);
-                    
-                    setTimeout(() => particle.remove(), 10000);
-                }, i * 1000);
             }
-        }
-
-        setInterval(createParticles, 15000);
-
-        init();
+        });
     </script>
 </body>
 </html>
