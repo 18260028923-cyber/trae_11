@@ -15,6 +15,8 @@ import {
   Statistic,
   Tag,
   Input,
+  Modal,
+  message,
 } from 'antd'
 import type { MenuProps, TableColumnsType } from 'antd'
 import {
@@ -47,6 +49,10 @@ interface DataType {
 const Dashboard: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false)
   const [selectedKey, setSelectedKey] = useState('dashboard')
+  const [isAddModalVisible, setIsAddModalVisible] = useState(false)
+  const [isEditModalVisible, setIsEditModalVisible] = useState(false)
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false)
+  const [currentProduct, setCurrentProduct] = useState<DataType | null>(null)
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken()
@@ -199,12 +205,12 @@ const Dashboard: React.FC = () => {
       title: '操作',
       key: 'action',
       width: 150,
-      render: () => (
+      render: (_, record) => (
         <Space size="middle">
-          <Button type="link" size="small">
+          <Button type="link" size="small" onClick={() => handleEditProduct(record)}>
             编辑
           </Button>
-          <Button type="link" size="small" danger>
+          <Button type="link" size="small" danger onClick={() => handleDeleteProduct(record)}>
             删除
           </Button>
         </Space>
@@ -214,6 +220,46 @@ const Dashboard: React.FC = () => {
 
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     setSelectedKey(e.key)
+  }
+
+  const handleExportData = () => {
+    message.success('数据导出成功！')
+  }
+
+  const handleAddProduct = () => {
+    setIsAddModalVisible(true)
+  }
+
+  const handleEditProduct = (record: DataType) => {
+    setCurrentProduct(record)
+    setIsEditModalVisible(true)
+  }
+
+  const handleDeleteProduct = (record: DataType) => {
+    setCurrentProduct(record)
+    setIsDeleteModalVisible(true)
+  }
+
+  const handleModalOk = () => {
+    if (isAddModalVisible) {
+      message.success('商品添加成功！')
+      setIsAddModalVisible(false)
+    } else if (isEditModalVisible) {
+      message.success('商品编辑成功！')
+      setIsEditModalVisible(false)
+      setCurrentProduct(null)
+    } else if (isDeleteModalVisible) {
+      message.success('商品删除成功！')
+      setIsDeleteModalVisible(false)
+      setCurrentProduct(null)
+    }
+  }
+
+  const handleModalCancel = () => {
+    setIsAddModalVisible(false)
+    setIsEditModalVisible(false)
+    setIsDeleteModalVisible(false)
+    setCurrentProduct(null)
   }
 
   return (
@@ -372,8 +418,8 @@ const Dashboard: React.FC = () => {
           >
             <h3 style={{ fontSize: 16, fontWeight: 600 }}>商品列表</h3>
             <Space>
-              <Button>导出数据</Button>
-              <Button type="primary">添加商品</Button>
+              <Button onClick={handleExportData}>导出数据</Button>
+              <Button type="primary" onClick={handleAddProduct}>添加商品</Button>
             </Space>
           </div>
 
@@ -391,6 +437,44 @@ const Dashboard: React.FC = () => {
           </Card>
         </Content>
       </Layout>
+
+      <Modal
+        title="添加商品"
+        open={isAddModalVisible}
+        onOk={handleModalOk}
+        onCancel={handleModalCancel}
+        okText="确认添加"
+        cancelText="取消"
+      >
+        <p>这里是添加商品的表单区域</p>
+        <p>可以包含商品名称、分类、价格、库存等输入字段</p>
+      </Modal>
+
+      <Modal
+        title="编辑商品"
+        open={isEditModalVisible}
+        onOk={handleModalOk}
+        onCancel={handleModalCancel}
+        okText="保存修改"
+        cancelText="取消"
+      >
+        <p>当前编辑的商品: {currentProduct?.name}</p>
+        <p>这里是编辑商品的表单区域</p>
+        <p>可以预填充商品的现有信息</p>
+      </Modal>
+
+      <Modal
+        title="确认删除"
+        open={isDeleteModalVisible}
+        onOk={handleModalOk}
+        onCancel={handleModalCancel}
+        okText="确认删除"
+        cancelText="取消"
+        okButtonProps={{ danger: true }}
+      >
+        <p>确定要删除商品 "{currentProduct?.name}" 吗？</p>
+        <p>此操作不可恢复，请谨慎操作。</p>
+      </Modal>
     </Layout>
   )
 }
