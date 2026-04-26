@@ -1,0 +1,13 @@
+order_id,user_id,order_date,amount,status,product_name,quantity
+ORD001,USER001,2024-01-15 10:30:00,1299.99,completed,iPhone 15 Pro,1
+ORD002,USER002,2024-01-15 11:45:30,599.00,pending,AirPods Pro,2
+ORD003,USER003,2024/01/16,899.50,completed,iPad Air,1
+ORD004,USER001,15-01-2024,1299.99,completed,iPhone 15 Pro,1
+ORD005,USER004,2024年1月17日 14:20:00,3499.00,shipped,MacBook Air,1
+ORD006,USER005,2024-01-18,199.99,cancelled,Magic Mouse,3
+ORD007,USER002,2024-01-15 11:45:30,599.00,pending,AirPods Pro,2
+ORD008,USER006,,899.00,completed,Apple Watch,1
+ORD009,USER007,2024-01-19,invalid,completed,HomePod,1
+ORD010,USER008,2024-01-20,1599.00,refunded,iPhone 14 Pro,1
+ORD011,USER009,01/21/2024,799.00,pending,iPad mini,1
+ORD012,USER010,2024-01-22 09:15:00,299.00,completed,AirTag,4
